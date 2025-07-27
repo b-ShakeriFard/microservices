@@ -1,2 +1,3 @@
 # microservices
-A first attempt at creating a web-based application, with multiple containers
+
+This folder contains some test applications.
