@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: frn-flask-pod-v1
+  name: frn-flask-pod-v2
   labels:
-    app: frn-flask-app-v1
+    app: frn-flask-app-v2
 spec:
   tolerations:
     - key: "node-role.kubernetes.io/control-plane"
@@ -11,7 +11,7 @@ spec:
       effect: "NoSchedule"
   containers:
     - name: flask-container
-      image: localhost:5000/frn-flask-v1-tejaris-2025-07-07:v1
+      image: localhost:5000/frn-flask-v2-tejaris-2025-07-07:v1
       ports: 
         - containerPort: 5000
       env:
