@@ -1,3 +1,8 @@
+# This is a simple flask app, which is supposed to interact with a redis container.
+# App was developed by Behrouz ShakeriFard
+# date: Decemer 2024
+# purpose: testing an application platform (container orchestration tool) for a client
+
 from flask import Flask, render_template, g
 from redis import Redis, ConnectionError
 
