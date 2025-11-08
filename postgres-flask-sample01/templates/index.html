@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title> Bixi CSV Demo </title>
+	<link rel=stylesheet" href="{{ url_for( 'static', filename='styles.css') }}">
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h1>Bixi Flask StatefulSet </h1>
+		<p> Status: <span class="ok"> App running </span> </p>
+
+		<p> CSV path:  <code> {{csv_path}} </code> </p>
+
+		<div class="table-container">
+
+			{{ table | safe}}
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>

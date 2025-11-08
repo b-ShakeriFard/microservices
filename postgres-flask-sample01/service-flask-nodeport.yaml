@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-postgres-front-service-nodeport
+spec:
+  selector:
+    app: flask-postgres-front-app
+  ports:
+    - protocol: TCP
+      port: 5004
+      targetPort: 5004
+      nodePort: 30100
+  type: NodePort

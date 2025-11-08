@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: name-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: name-postgres
+  template:
+    metadata:
+      labels:
+        app: name-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: name_db
+            - name: POSTGRES_USER
+              value: name_user
+            - name: POSTGRES_PASSWORD
+              value: name_pass
+          volumeMounts:
+            - name: name-storage
+              mountPath: /docker-entrypoint-initdb.d
+            - name: name-storage
+              mountPath: /var/lib/postgresql/
+      volumes:
+        - name: name-storage
+          persistentVolumeClaim:
+            claimName: name-pvc
+

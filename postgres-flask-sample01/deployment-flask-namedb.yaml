@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-postgres-front-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-postgres-front-app
+  template:
+    metadata:
+      labels:
+        app: flask-postgres-front-app
+    spec:
+      containers:
+        - name: flask-app
+          image: localhost:5000/name-db-flask-postgres:v1b
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5004
+          env:
+            - name: DB_HOST
+              value: name-postgres-service
+            - name: DB_NAME
+              value: name_db
+            - name: DB_USER
+              value: name_user
+            - name: DB_PASS
+              value: name_pass
+
