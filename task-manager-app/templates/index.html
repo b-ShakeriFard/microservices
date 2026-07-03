@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="static/css/main.css" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Task Manager of Heavenly Bliss</title>
+</head>
+<body style="background-color: #eee; max-width: 1224px;">
+
+    <div style="height: 450px;">
+        <h1>Yesterday you achieved:</h1>
+
+        <p> </p>
+    </div>
+
+    <table class="data-structure" >
+        
+        <tr>
+            <td>
+                Daily Stuff:
+            </td>
+        </tr>
+    {% for task in tasks %}
+        <tr style="width: 900px;">
+            {% if task.recurrence == 'daily' %}
+                <td>{{ task.title }}</td>
+                <td style="width: 80px;">{{ task.recurrence }}</td>
+                <td style="width: 80px;">{{ task.duration }}</td>
+                <td style="min-width: 200px;">{{ task.category }}</td>
+                <td style="width: 80px;">{{ task.status }}</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </table>
+
+<hr>
+<br>
+<hr>
+
+    <table class="data-structure" >
+        
+        <tr>
+            <td>
+                Projects:
+            </td>
+        </tr>
+    {% for task in tasks %}
+        <tr style="width: 900px;">
+            {% if task.category == 'Project' %}
+                <td>{{ task.title }}</td>
+                <td style="width: 180px;">{{ task.recurrence }}</td>
+                <td style="width: 80px;">{{ task.duration }}</td>
+                <td style="min-width: 200px;">{{ task.category }}</td>
+                <td style="width: 80px;">{{ task.status }}</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </table>
+
+
+<hr>
+<br>
+<hr>
+
+<table class="data-structure" >
+    
+    <tr>
+        <td>
+            Short Tasks:
+        </td>
+    </tr>
+{% for task in tasks %}
+    <tr style="width: 900px;">
+        {% if task.duration == 'short' %}
+            <td>{{ task.title }}</td>
+            <td style="width: 180px;">{{ task.recurrence }}</td>
+            <td style="width: 80px;">{{ task.duration }}</td>
+            <td style="min-width: 200px;">{{ task.category }}</td>
+            <td style="width: 80px;">{{ task.status }}</td>
+        {% endif %}
+    </tr>
+{% endfor %}
+</table>
+
+    {% for task in tasks %}
+        <div>
+            <strong>{{ task.title }}</strong><br>
+            {{ task.recurrence }} | {{ task.duration }} | {{ task.category }} | {{ task.status }}
+        </div>
+        <hr>
+
+        <p>No tasks yet.</p>
+    {% endfor %}
+
+</body>
+</html>
+

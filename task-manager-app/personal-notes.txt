@@ -1,0 +1,8 @@
+Behrouz ShakeriFard
+
+2026 - June 08 th
+
+Two Container app is ready: Flask & Python for front-end, PostgreSQL for DataBase.
+Next, we could try to deploy it on our "kind" single-node cluster.
+
+Later, we could add more functions to the app.

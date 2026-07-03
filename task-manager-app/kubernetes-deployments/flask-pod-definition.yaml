@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: task-manager-app
+  name: task-manager-app
+spec:
+  containers:
+  - image: task-manager-beta:v2026_06-28a
+    name: task-manager-app
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-manager-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task-manager-v26-06-a
+  template:
+    metadata:
+      labels:
+        app: task-manager-v26-06-a
+    spec:
+      containers:
+      - name: flask-task-manager
+        image: task-manager-beta:v2026-06-28d
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5004
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: task-manager-configmap
+              key: DB_HOST
+
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: task-manager-configmap
+              key: DB_NAME
+
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: task-manager-secret
+              key: DB_USER
+
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: task-manager-secret
+              key: DB_PASSWORD

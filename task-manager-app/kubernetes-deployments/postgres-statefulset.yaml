@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: task-manager-statefulset-object
+spec:
+  selector:
+    matchLabels:
+      app: task-manager-v26-06-a 
+      # app.kubernetes.io/name: 
+  serviceName: postgres-headless
+  replicas: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: task-manager-v26-06-a
+        # app.kubernetes.io/name: 
+    spec:
+      containers:
+      - name: task-manager-postgres
+        image: postgres:16
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        - name: init-sql
+          mountPath: /docker-entrypoint-initdb.d/
+        env:
+        - name: POSTGRES_DB
+          value: taskdb
+          name: POSTGRES_USER
+          value: taskuser
+          name: POSTGRES_PASSWORD
+          value: junk00
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+      - name: init-sql
+        configMap:
+          name: postgres-init-sql

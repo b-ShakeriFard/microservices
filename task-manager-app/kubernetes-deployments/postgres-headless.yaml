@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: task-manager-v26-06-a
+  name: postgresql-headless-service
+spec:
+  clusterIP: None
+  ports:
+  - name: default-postgres-port
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: task-manager-v26-06-a
+    
+
