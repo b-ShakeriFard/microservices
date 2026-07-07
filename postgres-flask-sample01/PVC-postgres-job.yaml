@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-for-name-db
+  name: pvc-for-postgres-job
   namespace: name-db-lab
 spec:
   storageClassName: ""
-  volumeName: pv-for-name-db
+  volumeName: pv-for-postgres-job
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 15Mi
+      storage: 10Mi
 

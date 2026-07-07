@@ -4,7 +4,7 @@ metadata:
   name: name-postgres-service
 spec:
   selector:
-    app: name-postgres   # must match the label in your Deployment or StatefulSet
+    app: name-db   # must match the label in your Deployment or StatefulSet
   ports:
     - name: postgres
       protocol: TCP

@@ -28,8 +28,8 @@ spec:
             echo "Starting PostgreSQL import..."
 
             psql \
-              -h name-postgres-service.default.svc.cluster.local \
-              -p 5434 \
+              -h name-postgres-service.name-db-lab.svc.cluster.local \
+              -p 5432 \
               -U name_user \
               -d name_db \
               -c "
@@ -45,16 +45,16 @@ spec:
               "
 
             psql \
-              -h name-postgres-service.default.svc.cluster.local \
-              -p 5434 \
+              -h name-postgres-service.name-db-lab.svc.cluster.local \
+              -p 5432 \
               -U name_user \
               -d name_db \
               -c "TRUNCATE TABLE people RESTART IDENTITY;"
 
 
             psql \
-              -h name-postgres-service.default.svc.cluster.local \
-              -p 5434 \
+              -h name-postgres-service.name-db-lab.svc.cluster.local \
+              -p 5432 \
               -U name_user \
               -d name_db \
               -c "\COPY people(name, age, education, employment, ownership_car, ownership_real_estate) FROM '/import/name.csv' DELIMITER ',' CSV HEADER;"
@@ -69,4 +69,4 @@ spec:
       volumes:
         - name: csv-storage
           persistentVolumeClaim:
-            claimName: csv-pvc
+            claimName: pvc-for-postgres-job

@@ -5,10 +5,10 @@ import os
 
 app = Flask(__name__)
 
-DB_HOST = os.getenv("DB_HOST", "name-postgres-service")
-DB_NAME = os.getenv("DB_NAME", "name_db")
-DB_USER = os.getenv("DB_USER", "name_user")
-DB_PASS = os.getenv("DB_PASS", "name_pass")
+DB_HOST = os.getenv("DB_HOST")
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASS = os.getenv("DB_PASS")
 
 
 @app.route("/")
@@ -43,4 +43,4 @@ def health ():
 
 # data will come later
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5008)
+    app.run(host="0.0.0.0", port=5004)

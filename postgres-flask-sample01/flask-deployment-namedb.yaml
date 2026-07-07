@@ -1,30 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-postgres-front-deploy
+  name: name-db-flask-deployment
+  namespace: name-db-lab
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flask-postgres-front-app
+      app: fp-name-db-app
   template:
     metadata:
       labels:
-        app: flask-postgres-front-app
+        app: fp-name-db-app
     spec:
       containers:
         - name: flask-app
-          image: name-db-2026-07:v2
+          image: name-db-2026-07:v3
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 5008
-          env:
-            - name: DB_HOST
-              value: name-postgres-service
-            - name: DB_NAME
-              value: name_db
-            - name: DB_USER
-              value: name_user
-            - name: DB_PASS
-              value: name_pass
-
+            - containerPort: 5004
+          envFrom:
+            - configMapRef:
+                name: flask-name-db-config
+            
+            - secretRef:
+                name: flask-name-db-secret

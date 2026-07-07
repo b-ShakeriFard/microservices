@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flask-name-db-config
+  namespace: name-db-lab
+data:
+  DB_HOST: name-postgres-service
+  DB_NAME: name_db

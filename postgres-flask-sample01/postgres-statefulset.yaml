@@ -1,16 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet 
 metadata:
-  name: name-postgres
+  name: name-db-statefulset
+  namespace: name-db-lab
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: name-postgres
+      app: name-db
   template:
     metadata:
       labels:
-        app: name-postgres
+        app: name-db
     spec:
       containers:
         - name: postgres
@@ -25,16 +26,18 @@ spec:
               value: name_user
             - name: POSTGRES_PASSWORD
               value: name_pass
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           volumeMounts:
-            - name: postgres-init-volume
-              mountPath: /docker-entrypoint-initdb.d
-              readOnly: true
+ #          - name: postgres-init-volume
+ #            mountPath: /docker-entrypoint-initdb.d
+ #              readOnly: true
             - name: postgres-data-volume
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql/data/pgdata
       volumes:
         - name: postgres-data-volume
           persistentVolumeClaim:
-            claimName: name-pvc
-        - name: postgres-init-volume
-          configMap:
-            name: name-db-postgres-init
+            claimName: pvc-for-name-db
+#       - name: postgres-init-volume
+#         configMap:
+#           name: name-db-postgres-init
