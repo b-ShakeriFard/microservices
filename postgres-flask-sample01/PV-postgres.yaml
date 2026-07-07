@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: name-pv
+  name: pv-for-name-db
 spec:
   capacity:
-    storage: 1Gi
+    storage: 45Mi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-    #storageClassName: local-storage
+  storageClassName: ""
   hostPath:
-    path: /home/behroox/bixi_app_01
+    path: /mnt/csv-data
+    type: Directory
 

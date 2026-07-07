@@ -1,0 +1,72 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: csv-import-job
+  namespace: name-db-lab
+spec:
+  template:
+    metadata:
+      labels:
+        name: csv-import-job
+    spec:
+      restartPolicy: Never
+      
+      containers:
+      - name: csv-importer
+        image: postgres:16
+        imagePullPolicy: IfNotPresent
+
+        env:
+          - name: PGPASSWORD
+            value: name_pass
+        command:
+          - /bin/bash
+          - -c
+          - |
+            echo "Checking CSV file..."
+            ls -l /import
+            echo "Starting PostgreSQL import..."
+
+            psql \
+              -h name-postgres-service.default.svc.cluster.local \
+              -p 5434 \
+              -U name_user \
+              -d name_db \
+              -c "
+              CREATE TABLE IF NOT EXISTS people (
+                id SERIAL PRIMARY KEY,
+                name TEXT,
+                age TEXT,
+                education TEXT,
+                employment TEXT,
+                ownership_car TEXT,
+                ownership_real_estate TEXT
+              );
+              "
+
+            psql \
+              -h name-postgres-service.default.svc.cluster.local \
+              -p 5434 \
+              -U name_user \
+              -d name_db \
+              -c "TRUNCATE TABLE people RESTART IDENTITY;"
+
+
+            psql \
+              -h name-postgres-service.default.svc.cluster.local \
+              -p 5434 \
+              -U name_user \
+              -d name_db \
+              -c "\COPY people(name, age, education, employment, ownership_car, ownership_real_estate) FROM '/import/name.csv' DELIMITER ',' CSV HEADER;"
+
+            echo "Import completed."
+
+        volumeMounts:
+          - name: csv-storage
+            mountPath: /import
+            readOnly: true
+
+      volumes:
+        - name: csv-storage
+          persistentVolumeClaim:
+            claimName: csv-pvc

@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: localhost:5000/name-db-flask-postgres:v1b
+          image: name-db-2026-07:v2
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 5004
+            - containerPort: 5008
           env:
             - name: DB_HOST
               value: name-postgres-service

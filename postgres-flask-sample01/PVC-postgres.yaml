@@ -1,12 +1,14 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: name-pvc
+  name: pvc-for-name-db
+  namespace: name-db-lab
 spec:
+  storageClassName: ""
+  volumeName: pv-for-name-db
   accessModes:
     - ReadWriteOnce
-      #storageClassName: local-storage
   resources:
     requests:
-      storage: 1Gi
+      storage: 35Mi
 

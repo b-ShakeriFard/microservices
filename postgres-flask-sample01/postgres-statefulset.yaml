@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet 
 metadata:
   name: name-postgres
 spec:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:latest
+          image: postgres:16
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
@@ -26,12 +26,15 @@ spec:
             - name: POSTGRES_PASSWORD
               value: name_pass
           volumeMounts:
-            - name: name-storage
+            - name: postgres-init-volume
               mountPath: /docker-entrypoint-initdb.d
-            - name: name-storage
-              mountPath: /var/lib/postgresql/
+              readOnly: true
+            - name: postgres-data-volume
+              mountPath: /var/lib/postgresql/data
       volumes:
-        - name: name-storage
+        - name: postgres-data-volume
           persistentVolumeClaim:
             claimName: name-pvc
-
+        - name: postgres-init-volume
+          configMap:
+            name: name-db-postgres-init
