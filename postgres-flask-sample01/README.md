@@ -13,9 +13,9 @@ There are two services: ClusterIP for PostgreSQL & NodePort for flask.
 
 <hr>
 
-You will find a "kubernetes" folder here in which there are manifest files: 
+You will find all "kubernetes" manifest files here: 
 
-statefulset, deployment, PV & PVC, headless service, NodePort service, etc.
+statefulset, deployment, PV & PVC, headless service, NodePort service, ConfigMap, Secret, etc.
 
 <hr>
 
@@ -23,10 +23,10 @@ App info:
 
 NameSpace: name-db-lab
 
-App-name:
+App-name: fp-name-db-app
 
-Service Name:
+postgres Service Name: name-postgres-service
 
-flask port: 5008
+flask port: 5004
 
 postgres port: 5432
