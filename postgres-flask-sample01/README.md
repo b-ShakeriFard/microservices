@@ -104,6 +104,9 @@ CMD ["python" , "app.py"]
 
 What it does: it uses python 3.12 alpine as the base image; adds the necessary packages; and runs the "app.py".
 
+```bash
+docker build -t name-db-2026-07:v3 -f Dockerfile .
+```
 That's it!
 
 <hr>
@@ -116,3 +119,34 @@ That's very observant of you; Genius! :-D <br>
 We have a solution :-D
 
 ```bash 
+docker save name-db-2026-07:v3 -o name-db-2026-07-v3.tar
+```
+
+Now, you may import the image which you just saved, as a file.
+
+```bash
+sudo k3s ctr images import name-db-2026-07-v3.tar
+```
+
+Verify:
+
+```bash
+sudo k3s crictl images
+```
+
+And all is well :-D
+
+```bash
+kubectl apply -f flask-deployment.yaml
+```
+
+<hr>
+
+<h3> Hnag on, I made a mistake, and I need to build and import the image again! </h3>
+
+Wonderful! Not a problem. Delete the image from your cluster, like this:
+
+```bash
+sudo k3s crictl rmi docker.io/library/name-db-2026-07:v3
+```
+

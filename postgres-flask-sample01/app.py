@@ -1,5 +1,5 @@
 from flask import Flask, render_template, render_template_string
-import pandas as pd
+# import pandas as pd
 import psycopg2
 import os
 
