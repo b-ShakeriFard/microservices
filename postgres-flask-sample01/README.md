@@ -1,7 +1,5 @@
-Author: Behrouz ShakeriFard
-
-Contact: bshakeri@torontomu.ca
-
+Author: Behrouz ShakeriFard <br>
+Contact: bshakeri@torontomu.ca <br>
 Date: November 8th, 2025
 
 UPDATED
@@ -17,17 +15,17 @@ ARCHITECTURE:
 flowchart TB
     User["User / Web Browser"]
 
-    subgraph K3S["K3s Cluster"]
+    subgraph K3S["Kubernetes Cluster"]
         direction TB
 
         subgraph NS["Namespace: name-db-lab"]
             direction TB
 
-            NodePort["NodePort Service<br/>Port: 30100"]
+            NodePort["NodePort Service - Port: 30100"]
 
             Flask["Flask Application Pod<br/>fp-name-db-app<br/>Port: 5004"]
 
-            Headless["PostgreSQL Headless Service<br/>Port: 5432"]
+            Headless["PostgreSQL Headless Service"]
 
             PostgreSQL[("PostgreSQL Pod<br/>Port: 5432")]
 
