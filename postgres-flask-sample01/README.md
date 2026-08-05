@@ -77,6 +77,12 @@ PostgreSQL port: 5432
 PostgreSQL Headless Service Name: name-postgres-service
 <br>
 
-The connection via Flask and the DB needs ConfigMap and Secret objects.
+The connection between the Flask pod and the data-base pod (PostgreSQL) needs the included ConfigMap and Secret objects. These yaml manifests include the following information: service name or DB_HOST, DB name, DB username, DB Password.
+
+<hr>
+
+<h3> But I don't have the image! </h3>
+
+You can use the included "Dockerfile".
 
 
