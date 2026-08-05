@@ -29,8 +29,8 @@ flowchart TB
             PostgreSQL[("PostgreSQL Pod<br/>Port: 5432")]
 
             NodePort -->|"targetPort: 5004"| Flask
-            Flask -->|"Database connection: 5432"| Headless
-            Headless -->|"DNS discovery"| PostgreSQL
+            Flask -->|"DNS discovery"| Headless
+            Headless -->|"Target port 5432"| PostgreSQL
         
     end
 
@@ -76,4 +76,7 @@ PostgreSQL port: 5432
 <br>
 PostgreSQL Headless Service Name: name-postgres-service
 <br>
+
+The connection via Flask and the DB needs ConfigMap and Secret objects.
+
 
