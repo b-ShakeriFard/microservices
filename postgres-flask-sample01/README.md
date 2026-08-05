@@ -85,4 +85,34 @@ The connection between the Flask pod and the data-base pod (PostgreSQL) needs th
 
 You can use the included "Dockerfile".
 
+Here is the content:
 
+```bash
+FROM python:3.12-alpine
+WORKDIR /app
+
+RUN pip install --no-cache-dir flask==3.0.3 pandas==2.2.3 psycopg2-binary
+
+COPY app.py .
+COPY templates/ templates/
+COPY static/ static/
+
+EXPOSE 5004
+
+CMD ["python" , "app.py"]
+```
+
+What it does: it uses python 3.12 alpine as the base image; adds the necessary packages; and runs the "app.py".
+
+That's it!
+
+<hr>
+
+<h3> But the Pod fails because the image is not available! </h3>
+
+Halelujah! 
+That's very observant of you; Genius! :-D <br>
+
+We have a solution :-D
+
+```bash 
