@@ -11,7 +11,22 @@ You have a repository on GitHub, and you want to push. Do this:
 
 <ol>
 <li> <b> Generate an SSH Key </b> </li>
+
 ```bash
 ssh-keygen -t ed25519 \
   -C "your-other-github-email@example.com" \
   -f ~/.ssh/id_ed25519_bshakerifard
+```
+
+this would generate two keys - one private and one public. Next, copy it:
+
+<li> <b> Copy it to your Git account: </b></li>
+
+```bash
+cat ~/.ssh/id_ed25519_bshakerifard.pub
+```
+
+<b> Settings > SSH and GPG keys > New SSH key </b>
+
+<li> Test your connection </li>
+
