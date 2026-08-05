@@ -150,3 +150,59 @@ Wonderful! Not a problem. Delete the image from your cluster, like this:
 sudo k3s crictl rmi docker.io/library/name-db-2026-07:v3
 ```
 
+Cool.
+
+By this time, you should see errors related to ConfigMap and Secret.<br> You guessed right! you should apply them as well.
+
+```bash
+kubectl apply -f flask-ConfigMap.yaml
+kubectl apply -f flask-Secrets.yaml 
+```
+
+<hr>
+
+<h3> But I can't see anything on my browser! </h3>
+
+Excellent; and you shouldn't! You know why?
+
+Because of some trivial small object called <b>NodePort service</b>.
+
+```bash
+kubectl apply -f flask-service-nodeport.yaml
+```
+
+Now, you have a service (a networking object) which should allow you to see your app on your browser. But don't get excited yet. We have things to do!
+
+```bash
+kubectl get svc -n name-db-lab
+```
+
+Look at the five digit number: 30100 <br>
+That is your nodeport.
+
+```bash
+kubectl get nodes -o wide
+```
+
+Now, look at the IP. It should be something like 192.168.1.17
+<br> Open your browser, and type:
+
+```bash
+192.168.1.17:30100
+```
+
+Now you should see your web-app :-D
+
+<hr>
+
+<h3> But it says "Error: could not translate host name "name-postgres-service" </h3>
+
+Yeah.. I know! <br>
+End of the world? Not quite! We can fix this. <br>
+You need the postgres pod; don't you? :-D
+
+```bash
+kubectl apply -f postgres-statefulset.yaml
+```
+
+Don't do it yet! You need a PV and a PVC before you do this!
