@@ -2,31 +2,74 @@ Author: Behrouz ShakeriFard
 Contact: bshakeri@torontomu.ca
 Date: November 8th, 2025
 
+UPDATED
 second iteration: July 2026
 
 
-This is a sample PostgreSQL + flask app, used for demonstrating statefulset apps and their functionalities.
+This is a sample web-based application designed for demonstrating deployment of a statefulset app on kubernetes.
+Microservices: flask (front-end) + PostgreSQL (back-end)
 
-Data is retrieved from CSV files, and it is initialized via a simple init.sql script.
-Postgres container allows communication via 5432 port, and flask via 5004 port.
-There are two services: ClusterIP for PostgreSQL & NodePort for flask.
+ARCHITECTURE:
+
+```mermaid
+flowchart TB
+    User["User / Web Browser"]
+
+    subgraph K3S["K3s Cluster"]
+        direction TB
+
+        subgraph NS["Namespace: name-db-lab"]
+            direction TB
+
+            NodePort["NodePort Service<br/>Port: 30100"]
+
+            Flask["Flask Application Pod<br/>fp-name-db-app<br/>Port: 5004"]
+
+            Headless["PostgreSQL Headless Service<br/>Port: 5432"]
+
+            PostgreSQL[("PostgreSQL Pod<br/>Port: 5432")]
+
+            NodePort -->|"targetPort: 5004"| Flask
+            Flask -->|"Database connection: 5432"| Headless
+            Headless -->|"DNS discovery"| PostgreSQL
+        end
+    end
+
+    User -->|"HTTP<br/>Node-IP:30100"| NodePort
+```
 
 <hr>
 
-You will find all "kubernetes" manifest files here: 
+Data is retrieved from a CSV file, and initialized via a simple init.sql script.
 
-statefulset, deployment, PV & PVC, headless service, NodePort service, ConfigMap, Secret, etc.
+There are two services: 
+Headless service for the PostgreSQL stateful - port 5432, 
+NodePort service for flask - port 5004.
 
 <hr>
 
-App info:
+Kubernetes manifest files: 
 
-NameSpace: name-db-lab
+- flask deployment,
+- flask Nodeport service,
+- PV (persistent volume),
+- NameSpace
+- PostgreSQL statefulset,
+- PostgreSQL Headless service,
+- PostgreSQL PVC 
+- ConfigMap and Secret, for allowing flask to access the database.
 
-App-name: fp-name-db-app
+<hr>
 
-postgres Service Name: name-postgres-service
+<h3> 
+App info: </h3>
 
-flask port: 5004
+- NameSpace: name-db-lab
 
-postgres port: 5432
+- App-name: fp-name-db-app
+
+- PostgreSQL Headless Service Name: name-postgres-service
+
+- flask port: 5004
+
+- postgres port: 5432
