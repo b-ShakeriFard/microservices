@@ -18,8 +18,7 @@ flowchart TB
     subgraph K3S["Kubernetes Cluster"]
         direction TB
 
-        subgraph NS["Namespace: name-db-lab"]
-            direction TB
+    
 
             NodePort["NodePort Service - Port: 30100"]
 
@@ -32,7 +31,7 @@ flowchart TB
             NodePort -->|"targetPort: 5004"| Flask
             Flask -->|"Database connection: 5432"| Headless
             Headless -->|"DNS discovery"| PostgreSQL
-        end
+        
     end
 
     User -->|"HTTP<br/>Node-IP:30100"| NodePort
@@ -64,12 +63,17 @@ Kubernetes manifest files:
 <h3> 
 App info: </h3>
 
-- NameSpace: name-db-lab
+NameSpace: name-db-lab
+<br>
+App-name: fp-name-db-app
+<br>
+Flask port: 5004
+<br>
+NodePort service: 30100
+<br>
 
-- App-name: fp-name-db-app
+PostgreSQL port: 5432
+<br>
+PostgreSQL Headless Service Name: name-postgres-service
+<br>
 
-- PostgreSQL Headless Service Name: name-postgres-service
-
-- flask port: 5004
-
-- postgres port: 5432
